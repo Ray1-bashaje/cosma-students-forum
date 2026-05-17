@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosma Students Forum</title>
+    <!-- Tunatumia Tailwind CSS kwa muonekano wa kisasa kabisa -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <!-- Header ya Juu -->
+    <header class="bg-blue-600 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-wide">Cosma Students Forum</h1>
+            <span class="text-xs bg-blue-700 px-3 py-1 rounded-full">Jukwaa la Maarifa</span>
+        </div>
+    </header>
+
+    <!-- Sehemu Kuu ya Ukurasa -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        
+        <!-- Fomu ya Kuuliza Swali -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-blue-600">Uliza Swali au Anzisha Mada</h2>
+            <form action="/uliza" method="POST" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Kichwa cha Habari (Topic)</label>
+                    <input type="text" name="kichwa" required placeholder="Mfano: Jinsi ya kukokotoa mifano ya Fluid Dynamics" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Somo (Somo Husika)</label>
+                    <select name="somo" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="Physics">Physics</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="General Studies">General Studies</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Maelezo ya Swali</label>
+                    <textarea name="maelezo" rows="4" required placeholder="Andika hapa swali lako kwa urefu..." class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                </div>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-md transition duration-200 cursor-pointer">
+                    Tuma Kwenye Jukwaa
+                </button>
+            </form>
+        </section>
+
+        <!-- Sehemu ya Kuonyesha Mijadala -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold text-gray-700 mb-2">Mijadala Inayoendelea</h2>
+            
+            {% if mijadala %}
+                {% for mada in mijadala %}
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xs font-semibold uppercase px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                            {{ mada.somo }}
+                        </span>
+                        <span class="text-xs text-gray-400">
+                            {{ mada.tarehe.strftime('%Y-%m-%d %H:%M') }}
+                        </span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">{{ mada.kichwa_cha_habari }}</h3>
+                    <p class="text-gray-600 whitespace-pre-line">{{ mada.maelezo }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="bg-white p-6 rounded-lg shadow-md text-center text-gray-500">
+                    Hakuna mada bado. Kuwa wa kwanza kuanzisha mjadala!
+                </div>
+            {% endif %}
+
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 text-gray-500 text-sm mt-12 border-t border-gray-200">
+        &copy; 2026 Cosma Technical & Educational Services.
+    </footer>
+
+</body>
+</html>
